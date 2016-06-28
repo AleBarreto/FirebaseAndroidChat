@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:emojicon="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="5dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp">
+
+    <ImageView
+        android:layout_alignBottom="@+id/contentMessageChat"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/ivUserChat" />
+
+    <me.himanshusoni.chatmessageview.ChatMessageView
+        android:id="@+id/contentMessageChat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cmv_backgroundColor="#fff"
+        app:cmv_backgroundColorPressed="#FFBABABA"
+        app:cmv_arrowGravity="end"
+        app:cmv_arrowPosition="left"
+        app:cmv_cornerRadius="3dp"
+        app:cmv_showArrow="true"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/ivUserChat">
+
+    <ImageView
+        android:id="@+id/img_chat"
+        android:minWidth="100dp"
+        android:minHeight="100dp"
+        android:maxWidth="150dp"
+        android:maxHeight="150dp"
+        android:background="#000"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/tvLocation"
+            android:layout_marginTop="2dp"
+            android:layout_below="@+id/img_chat"
+            android:textSize="10sp"
+            android:text="Localização Recebida"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"/>
+
+    </me.himanshusoni.chatmessageview.ChatMessageView>
+
+    <TextView
+        android:text="22/06/2016"
+        android:id="@+id/timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:paddingLeft="10dp"
+        android:paddingTop="3dp"
+        android:textSize="10sp"
+        android:layout_below="@+id/contentMessageChat"
+        android:layout_toEndOf="@+id/ivUserChat" />
+</RelativeLayout>

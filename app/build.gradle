@@ -1,0 +1,53 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "alessandro.firebaseandroid"
+        minSdkVersion 17
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    testCompile 'junit:junit:4.12'
+
+    //SUPPORT ANDROID
+    compile 'com.android.support:appcompat-v7:24.0.0'
+    compile 'com.android.support:recyclerview-v7:24.0.0'
+    compile 'com.android.support:design:24.0.0'
+
+    //IMAGE LOAD
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    //CHAT UI
+    compile 'hani.momanii.supernova_emoji_library:supernova-emoji-library:0.0.2'
+    compile 'me.himanshusoni.chatmessageview:chat-message-view:1.0.3'
+
+    // AUTH
+    compile 'com.google.android.gms:play-services-auth:9.2.0'
+    compile 'com.google.firebase:firebase-auth:9.0.2'
+
+    //DATABASE FIREBASE,UI
+    compile 'com.google.firebase:firebase-database:9.0.2'
+    compile 'com.firebaseui:firebase-ui-database:0.4.1'
+
+    //STORAGE FIREBASE
+    compile 'com.google.firebase:firebase-storage:9.0.2'
+
+    //Places SERVICES
+    compile 'com.google.android.gms:play-services-places:9.2.0'
+
+}
+apply plugin: 'com.google.gms.google-services'
