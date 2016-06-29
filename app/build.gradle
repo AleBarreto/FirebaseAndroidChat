@@ -37,14 +37,14 @@ dependencies {
 
     // AUTH
     compile 'com.google.android.gms:play-services-auth:9.2.0'
-    compile 'com.google.firebase:firebase-auth:9.0.2'
+    compile 'com.google.firebase:firebase-auth:9.2.0'
 
     //DATABASE FIREBASE,UI
-    compile 'com.google.firebase:firebase-database:9.0.2'
+    compile 'com.google.firebase:firebase-database:9.2.0'
     compile 'com.firebaseui:firebase-ui-database:0.4.1'
 
     //STORAGE FIREBASE
-    compile 'com.google.firebase:firebase-storage:9.0.2'
+    compile 'com.google.firebase:firebase-storage:9.2.0'
 
     //Places SERVICES
     compile 'com.google.android.gms:play-services-places:9.2.0'
