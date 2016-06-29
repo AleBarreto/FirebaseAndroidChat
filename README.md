@@ -118,10 +118,10 @@
 
 #### Getting Started
 
-* [Add Firebase to your Android Project.] (https://firebase.google.com/docs/android/setup)
-
-* Select the Auth panel and then click the Sign In Method tab.
-* Click Google and turn on the Enable switch, then click Save
+1. [Add Firebase to your Android Project.] (https://firebase.google.com/docs/android/setup)
+2. Copy the google-services.json file you just downloaded into the app/ or mobile/ directory of your Android Studio project.
+3. Select the Auth panel and then click the Sign In Method tab.
+4. Click Google and turn on the Enable switch, then click Save
 
 
 
