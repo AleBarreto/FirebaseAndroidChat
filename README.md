@@ -125,6 +125,32 @@
 3. Select the Auth panel and then click the Sign In Method tab.
 4. Click Google and turn on the Enable switch, then click Save
 
+##### Change
+
+```java
+
+public class Util {
+
+    public static final String URL_STORAGE_REFERENCE = "XXXXXXXXXXX";
+    
+    ...    
+}
+
+```
+
+##### Places Api
+
+```xml
+
+<string name="api_key_google_places">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</string>
+
+```
+
+
+
+
+
+
 
 
 
