@@ -1,5 +1,7 @@
 # Firebase Android Chat
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-FirebaseAndroidChat-green.svg?style=true)](https://android-arsenal.com/details/3/3812)
+
 > Preview
 
 ![alt tag](https://github.com/AleBarreto/FirebaseAndroidChat/blob/master/prints/1.png?raw=true)
