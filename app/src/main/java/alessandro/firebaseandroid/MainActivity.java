@@ -1,15 +1,15 @@
 package alessandro.firebaseandroid;
 
 import android.content.Intent;
-
+import android.content.pm.PackageManager;
 import android.net.Uri;
-
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
-
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateFormat;
@@ -17,9 +17,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import android.widget.ImageView;
-
 
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.ConnectionResult;
@@ -33,25 +31,17 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Calendar;
 import java.util.Date;
 
 import alessandro.firebaseandroid.adapter.ChatFirebaseAdapter;
-
 import alessandro.firebaseandroid.adapter.ClickListenerChatFirebase;
 import alessandro.firebaseandroid.model.ChatModel;
 import alessandro.firebaseandroid.model.FileModel;
@@ -92,6 +82,13 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
     //File
     private File filePathImageCamera;
+
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
 
         switch (item.getItemId()){
             case R.id.sendPhoto:
-                photoCameraIntent();
+                verifyStoragePermissions();
+//                photoCameraIntent();
                 break;
             case R.id.sendPhotoGallery:
                 photoGalleryIntent();
@@ -244,7 +242,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
      */
     private void sendFileFirebase(StorageReference storageReference, final File file){
         if (storageReference != null){
-            UploadTask uploadTask = storageReference.putFile(Uri.fromFile(file));
+            Uri photoURI = FileProvider.getUriForFile(MainActivity.this,
+                    BuildConfig.APPLICATION_ID + ".provider",
+                    file);
+            UploadTask uploadTask = storageReference.putFile(photoURI);
             uploadTask.addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
@@ -285,7 +286,10 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         String nomeFoto = DateFormat.format("yyyy-MM-dd_hhmmss", new Date()).toString();
         filePathImageCamera = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), nomeFoto+"camera.jpg");
         Intent it = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        it.putExtra(MediaStore.EXTRA_OUTPUT,Uri.fromFile(filePathImageCamera));
+        Uri photoURI = FileProvider.getUriForFile(MainActivity.this,
+                BuildConfig.APPLICATION_ID + ".provider",
+                filePathImageCamera);
+        it.putExtra(MediaStore.EXTRA_OUTPUT,photoURI);
         startActivityForResult(it, IMAGE_CAMERA_REQUEST);
     }
 
@@ -372,4 +376,41 @@ public class MainActivity extends AppCompatActivity implements GoogleApiClient.O
         finish();
     }
 
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     */
+    public void verifyStoragePermissions() {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(MainActivity.this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    MainActivity.this,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }else{
+            // we already have permission, lets go ahead and call camera intent
+            photoCameraIntent();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        switch (requestCode){
+            case REQUEST_EXTERNAL_STORAGE:
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // permission was granted
+                    photoCameraIntent();
+                }
+                break;
+        }
+    }
 }
