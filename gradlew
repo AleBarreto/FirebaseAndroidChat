@@ -19,6 +19,8 @@ warn ( ) {
     echo "$*"
 }
 
+
+
 die ( ) {
     echo
     echo "$*"
@@ -26,7 +28,11 @@ die ( ) {
     exit 1
 }
 
+
+
 # OS specific support (must be 'true' or 'false').
+
+
 cygwin=false
 msys=false
 darwin=false
@@ -43,7 +49,13 @@ case "`uname`" in
 esac
 
 # Attempt to set APP_HOME
+
+
+
 # Resolve links: $0 may be a link
+
+
+
 PRG="$0"
 # Need this for relative symlinks.
 while [ -h "$PRG" ] ; do
@@ -63,6 +75,9 @@ cd "$SAVED" >/dev/null
 CLASSPATH=$APP_HOME/gradle/wrapper/gradle-wrapper.jar
 
 # Determine the Java command to use to start the JVM.
+
+
+
 if [ -n "$JAVA_HOME" ] ; then
     if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
         # IBM's JDK on AIX uses strange locations for the executables
